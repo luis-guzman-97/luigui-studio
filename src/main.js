@@ -6,6 +6,7 @@ import { router } from "./mainRouter.js";
 import "bootstrap/dist/css/bootstrap.css";
 import "@/assets/main.css";
 import "bootstrap/dist/js/bootstrap.js";
+import './registerServiceWorker'
 
 /* const firebaseConfig = {
   apiKey: "AIzaSyDpN45_kr8b7XyV6PO7N7r9VQL1Af-aoPc",
