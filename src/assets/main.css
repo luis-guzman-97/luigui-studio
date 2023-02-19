@@ -1,0 +1,8 @@
+.dropdown-item.active, .dropdown-item:active {
+    background-color: var(--bs-dark);
+}
+
+.swal-button:not([disabled]):hover, .swal-button--confirm {
+    background-color:var(--bs-dark);
+    text-align: center;
+}
