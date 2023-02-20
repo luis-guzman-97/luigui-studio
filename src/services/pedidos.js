@@ -12,6 +12,7 @@ const getRegistros = () => {
        // console.log(doc.id, doc.data());
         return { ...doc.data(), id: doc.id };
       });
+      console.log(registros)
     } catch (err) {
       error.value = err.message;
     }

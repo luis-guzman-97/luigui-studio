@@ -3,7 +3,9 @@
     <div action="" class="row p-2">
       <div class="col-12">
         <div class="mt-1 mb-3 d-grid gap-2">
-          <button class="btn btn-dark mb-1" type="button" @click="formulario">Nuevo pedido</button>
+          <button class="btn btn-dark mb-1" type="button" @click="formulario">
+            Nuevo pedido
+          </button>
         </div>
       </div>
       <div class="col-sm-12">
@@ -12,6 +14,9 @@
       </div>
 
       <div class="col-12">
+        <p class="mb-0">Fotos tomadas: {{ registrosBI.fotosTotales }}</p>
+        <p>Fotos potenciales: {{ registrosBI.fotosPotenciales }}</p>
+
         <table class="table table-bordered table-striped">
           <caption>
             Pedidos
@@ -31,7 +36,12 @@
               </td>
               <td>{{ p.encargos.length }}</td>
               <td>
-                <button class="btn btn-secondary mb-1" @click="formularioVer(p)">Ver</button>
+                <button
+                  class="btn btn-secondary mb-1"
+                  @click="formularioVer(p)"
+                >
+                  Ver
+                </button>
               </td>
             </tr>
             <tr v-if="registros.length == 0">
@@ -57,19 +67,42 @@ export default {
 
     return { registros };
   },
+  computed: {
+    registrosBI() {
+      const codigos = {};
+      let codigosRepet = 0;
+
+      this.registros.forEach((elemento) => {
+        if (!elemento.cliente.includes("*")) {
+          elemento.encargos.forEach((encargo) => {
+            codigosRepet++;
+            if (codigos[encargo.codigo]) {
+              codigos[encargo.codigo]++;
+            } else {
+              codigos[encargo.codigo] = 1;
+            }
+          });
+        }
+      });
+
+      const totalEncargos = Object.keys(codigos).length;
+
+      return { fotosTotales: totalEncargos, fotosPotenciales: codigosRepet };
+    },
+  },
   mounted() {},
   data() {
     return {};
   },
   methods: {
-    formulario(){
-        //console.log('Boton pulsado', pelicula);
-        this.$emit('formulario', {pantalla:'form', data:null});
+    formulario() {
+      //console.log('Boton pulsado', pelicula);
+      this.$emit("formulario", { pantalla: "form", data: null });
     },
-    formularioVer(ver){
-        //console.log('Boton pulsado', pelicula);
-        this.$emit('formulario', {pantalla:'form', data:ver});
-    }
+    formularioVer(ver) {
+      //console.log('Boton pulsado', pelicula);
+      this.$emit("formulario", { pantalla: "form", data: ver });
+    },
   },
 };
 </script>
